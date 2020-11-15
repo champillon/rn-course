@@ -1,15 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar'
+import React from 'react'
+import { StyleSheet, Text, View, SafeAreaView, Button, ScrollView } from 'react-native'
 
-export default function App() {
+export default function App(): JSX.Element {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <SafeAreaView style={styles.container}>
+      <ScrollView horizontal={false}>
+        <Text>Hello world!!</Text>
+        <Button title="Nice!" onPress={() => null}></Button>   
+        <StatusBar style="auto" />
+      </ScrollView>
+    </SafeAreaView>
+  )
 }
+
+// export { default } from './storybook';
 
 const styles = StyleSheet.create({
   container: {
@@ -18,4 +23,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+})
