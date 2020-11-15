@@ -19,4 +19,4 @@ rules:
     - error 
     - never
 globals:
-  - module
+  module: readonly
