@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/react-native'
 import React from 'react'
 import { useFonts } from 'expo-font'
-import { StyleProp, Text, TextStyle, View } from 'react-native'
+import { Text, TextStyle, View } from 'react-native'
 import CenterView from '../CenterView'
 
 function CustomFontText(): JSX.Element {
