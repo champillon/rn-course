@@ -17,6 +17,9 @@ storiesOf('Image', module)
       }}
     />
   ))
+  .add('Image from local', () => {
+    return <Image source={require('../../../assets/sample-img.jpeg')} />
+  })
   .add('Resize mode', () => (
     <View>
       <Section>
