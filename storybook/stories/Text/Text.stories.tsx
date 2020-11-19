@@ -1,7 +1,8 @@
 import { storiesOf } from '@storybook/react-native'
 import React from 'react'
 import { useFonts } from 'expo-font'
-import { Text, TextStyle, View } from 'react-native'
+import { Text, View } from 'react-native'
+import { Section, Header } from '../Helpers/Helpers'
 import CenterView from '../CenterView'
 
 function CustomFontText(): JSX.Element {
@@ -19,22 +20,6 @@ function CustomFontText(): JSX.Element {
   // After font loaded
   // PS. All assets need to be loaded (Image and font)
   return <Text style={{ fontFamily: 'admiration_pain', fontSize: 40 }}>Custom Hello world</Text>
-}
-
-type HeaderProps = {
-  children: string
-  style?: TextStyle
-}
-const Header = (props: HeaderProps) => {
-  const overrideStyle = props.style || {}
-  return <Text style={{ fontSize: 20, fontWeight: 'bold', ...overrideStyle }}>{props.children}</Text>
-}
-
-type SectionProps = {
-  children: React.ReactNode
-}
-const Section = ({ children }: SectionProps) => {
-  return <View style={{ marginTop: 30 }}>{children}</View>
 }
 
 storiesOf('Text', module)
