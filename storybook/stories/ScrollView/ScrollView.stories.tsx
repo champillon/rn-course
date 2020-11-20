@@ -48,6 +48,7 @@ storiesOf('ScrollView', module)
       )
     }
     return <ZoomableScroll />
+    // 🤔 Can you create Reset Zoom button?
   })
   .add('ContentContainerStyle', () => (
     <ScrollView contentContainerStyle={{ alignItems: 'center' }} style={{ width: '100%' }}>
@@ -74,7 +75,7 @@ storiesOf('ScrollView', module)
         </View>
       ))
     }
-    const snappingOffsets = arrayOfConsequtiveNumbers(100).map((i) => i * itemHeight - 10)
+    const snappingOffsets = arrayOfConsequtiveNumbers(100).map((i) => i * itemHeight)
     return (
       <ScrollView
         contentContainerStyle={{ alignItems: 'center' }}
@@ -84,6 +85,8 @@ storiesOf('ScrollView', module)
         {getSnappingItems()}
       </ScrollView>
     )
+    // 🤔 How does it work with Zoom?
+    // 🤔 Snapping exactly on top does not look well. Can you layout it better? 😁
   })
 
 // ScrollView will render every component upfront
