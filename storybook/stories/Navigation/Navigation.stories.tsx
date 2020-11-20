@@ -5,8 +5,6 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import CenterView from '../CenterView'
-
 type ParamsList = {
   Details: undefined
   Home: undefined
