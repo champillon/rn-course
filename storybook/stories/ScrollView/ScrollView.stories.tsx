@@ -1,9 +1,8 @@
 import { storiesOf } from '@storybook/react-native'
 import React, { useState } from 'react'
 import { ScrollView, View, Text, Button } from 'react-native'
+import { arrayOfConsequtiveNumbers } from '../../../Helpers/Utils'
 import CenterView from '../CenterView'
-
-const arrayOfConsequtiveNumbers = (count: number) => Array.from(Array(count).keys())
 
 const get100Texts = () => {
   return arrayOfConsequtiveNumbers(100).map((_, i) => {
