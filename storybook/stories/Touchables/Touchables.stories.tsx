@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/react-native'
 import { action } from '@storybook/addon-actions'
-import React, { useState } from 'react'
+import React from 'react'
 import { View, Text, TouchableHighlight, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
 import CenterView from '../CenterView'
 
