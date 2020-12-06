@@ -17,6 +17,7 @@ storiesOf('Layout', module)
         borderWidth: 30,
         borderColor: 'green',
         padding: 30,
+        paddingLeft: 10,
         width: 300,
         height: 500,
         alignItems: 'flex-start',

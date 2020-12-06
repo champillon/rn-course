@@ -10,12 +10,17 @@ storiesOf('Layout', module)
       parent: {
         backgroundColor: 'silver',
         opacity: 0.5,
-        flexDirection: 'column',
+        flexDirection: 'row',
+        alignItems: 'stretch',
+        justifyContent: 'flex-start',
+        height: 600,
+        width: 250,
       },
       child: {
         borderWidth: 1,
         borderColor: 'gray',
-        width: 100,
+        margin: 5,
+        width: 50,
         height: 100,
         alignItems: 'center',
         justifyContent: 'center',
@@ -97,3 +102,5 @@ storiesOf('Layout', module)
       </View>
     )
   })
+// Playground: https://yogalayout.com/docs/flex-direction/
+// Cheatsheet: https://medium.com/wix-engineering/the-full-react-native-layout-cheat-sheet-a4147802405c
