@@ -21,3 +21,15 @@ export const AwesomeShadow: ViewStyle = {
 
   elevation: 5,
 }
+
+export const BorderMonMonJarbJarb: ViewStyle = {
+  borderColor: 'silver',
+  borderWidth: 2,
+  borderRadius: 3,
+}
+
+export const ColorBlueHuahinSea = '#xxxx'
+
+export const StandardLeftMargin = 3
+
+export const LargeMidFontSize = 24
