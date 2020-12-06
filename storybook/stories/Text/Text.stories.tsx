@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/react-native'
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import { useFonts } from 'expo-font'
-import { Text, View } from 'react-native'
+import { Text, TextProps, View } from 'react-native'
 import { Section, Header } from '../Helpers/Helpers'
 import CenterView from '../CenterView'
 
@@ -9,30 +9,43 @@ function CustomFontText(): JSX.Element {
   // Need to install `expo install expo-font` first
   const [fontLoaded, fontLoadError] = useFonts({
     admiration_pain: require('../../../assets/admiration_pain.ttf'),
+    inter: 'https://rsms.me/inter/font-files/Inter-SemiBoldItalic.otf?v=3.12',
   })
   if (!fontLoaded) {
+    console.log('Font loading...')
     return <View />
   }
   if (fontLoadError) {
+    console.log('Font loaderror:', fontLoadError)
     return <Text>fontLoadError.message</Text>
   }
 
   // After font loaded
   // PS. All assets need to be loaded (Image and font)
-  return <Text style={{ fontFamily: 'admiration_pain', fontSize: 40 }}>Custom Hello world</Text>
+  return (
+    <View>
+      <Text style={{ fontFamily: 'admiration_pain', fontSize: 40 }}>Custom Hello world</Text>
+      <Text style={{ fontFamily: 'inter', fontSize: 40 }}>Custom Hello world</Text>
+    </View>
+  )
+
+  // PS: Standard way to do this: https://docs.expo.io/guides/using-custom-fonts/#using-the--apploading---component
 }
 
 storiesOf('Text', module)
   .addDecorator((getStory) => <CenterView>{getStory() as JSX.Element}</CenterView>)
-  .add('Simple text', () => <Text>Hello world!</Text>)
+  .add('Simple text', () => <View>Chris!</View>)
   .add('Fonted text', () => <Text style={{ fontFamily: 'Cochin', fontSize: 40 }}>Hello world!</Text>)
+  // Font reference: https://github.com/react-native-training/react-native-fonts
   // Let's emphasize this
   .add('Custom font text', () => <CustomFontText />)
   .add('Nested text', () => {
     return (
-      <Text>
-        Hello <Text style={{ fontWeight: 'bold' }}>World!</Text>
-      </Text>
+      <View>
+        <Text>
+          Hello <Text style={{ fontWeight: 'bold' }}>World!</Text>
+        </Text>
+      </View>
     )
   })
   .add('Nested Text vs Nested View', () => {
@@ -53,6 +66,16 @@ storiesOf('Text', module)
           </Text>
         </Section>
       </View>
+    )
+  })
+  .add('Nested Text Use case', () => {
+    const AppText = (props: PropsWithChildren<TextProps>) => {
+      return <Text style={{ fontFamily: 'Cochin', fontSize: 20 }} {...props}></Text>
+    }
+    return (
+      <AppText>
+        Hello <Text style={{ fontWeight: 'bold' }}>IconKaset</Text>
+      </AppText>
     )
   })
   .add('Number of lines and ellipsis', () => {

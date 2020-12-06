@@ -10,6 +10,7 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
+  Button,
 } from 'react-native'
 import CenterView from '../CenterView'
 import { Header, Section } from '../Helpers/Helpers'
@@ -37,7 +38,7 @@ storiesOf('TextInput', module)
   .add('Default', () => (
     <View>
       <Text>Enter:</Text>
-      <TextInput placeholder="Enter text here" style={{ height: 25, width: 300, backgroundColor: 'silver' }} />
+      <TextInput placeholder="Enter text here" style={{ backgroundColor: 'silver' }} />
     </View>
   ))
   .add('Multiline', () => {
@@ -65,7 +66,7 @@ storiesOf('TextInput', module)
         </Section>
         <Section>
           <Header>Numeric</Header>
-          <TextInput keyboardType="decimal-pad" style={{ height: 25, width: 300, backgroundColor: 'silver' }} />
+          <TextInput keyboardType="numeric" style={{ height: 25, width: 300, backgroundColor: 'silver' }} />
         </Section>
         <Section>
           <Header>Email Address</Header>
@@ -77,6 +78,7 @@ storiesOf('TextInput', module)
         </Section>
       </View>
     )
+    // Types: https://lefkowitz.me/visual-guide-to-react-native-textinput-keyboardtype-options/
   })
   .add('OnChange Event', () => {
     return <OnChangeText />
@@ -85,6 +87,14 @@ storiesOf('TextInput', module)
   .add('Handling space', () => {
     return (
       <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
+        <Section>
+          <Header>Input</Header>
+          <TextInput style={{ height: 25, width: 300, backgroundColor: 'silver' }} />
+        </Section>
+        <Section>
+          <Header>Input</Header>
+          <TextInput style={{ height: 25, width: 300, backgroundColor: 'silver' }} />
+        </Section>
         <Section>
           <Header>Input</Header>
           <TextInput style={{ height: 25, width: 300, backgroundColor: 'silver' }} />
@@ -119,7 +129,8 @@ storiesOf('TextInput', module)
     return (
       <TouchableWithoutFeedback onPress={dismissKeyboard}>
         <View style={{ width: '100%', height: '100%' }}>
-          <TextInput style={{ height: 25, top: 40, width: 300, backgroundColor: 'silver' }} />
+          <TextInput placeholder="Enter here" style={{ height: 25, backgroundColor: 'silver' }} />
+          <Button title="Press!" onPress={() => Keyboard.dismiss()} />
         </View>
       </TouchableWithoutFeedback>
     )
@@ -127,7 +138,8 @@ storiesOf('TextInput', module)
   .add('Handling exit #2', () => {
     return (
       <ScrollView scrollEnabled={false}>
-        <TextInput style={{ height: 25, top: 40, width: 300, backgroundColor: 'silver' }} />
+        <TextInput style={{ height: 25, marginTop: 40, width: 300, backgroundColor: 'silver' }} />
+        <Button title="Press!" onPress={() => null} />
       </ScrollView>
     )
   })

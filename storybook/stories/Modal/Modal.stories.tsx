@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/react-native'
 import React, { useState } from 'react'
-import { Modal, Button, View, ModalProps } from 'react-native'
+import { Modal, Button, View, ModalProps, SafeAreaView } from 'react-native'
 import CenterView from '../CenterView'
 
 const SimpleModal = (props: ModalProps) => {
@@ -8,9 +8,9 @@ const SimpleModal = (props: ModalProps) => {
   return (
     <View>
       <Modal visible={visible} {...props}>
-        <View>
+        <SafeAreaView>
           <Button title="Close this modal" onPress={() => setVisible(false)}></Button>
-        </View>
+        </SafeAreaView>
       </Modal>
       <Button title="Open" onPress={() => setVisible(true)} />
     </View>
@@ -23,15 +23,15 @@ const VariousAnimationModals = (props: ModalProps) => {
   return (
     <View>
       <Modal visible={fadeVisible} {...props} animationType="fade">
-        <View>
+        <SafeAreaView>
           <Button title="Close this modal" onPress={() => setFadeVisible(false)}></Button>
-        </View>
+        </SafeAreaView>
       </Modal>
       <Button title="Fade" onPress={() => setFadeVisible(true)} />
       <Modal visible={slideVisible} {...props} animationType="slide">
-        <View>
+        <SafeAreaView>
           <Button title="Close this modal" onPress={() => setSlideVisible(false)}></Button>
-        </View>
+        </SafeAreaView>
       </Modal>
       <Button title="Slide" onPress={() => setSlideVisible(true)} />
     </View>
