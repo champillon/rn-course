@@ -69,11 +69,11 @@ storiesOf('Hooks/useEffect', module)
   .add('Simple timer', () => {
     return <TimerComponent />
   })
+  .add('Dependency', () => {
+    return <StartableTimerComponent />
+  })
   .add('Load data', () => {
     return <UserComponent />
-  })
-  .add('Memoized', () => {
-    return <StartableTimerComponent />
   })
   .add('Custom Hooks', () => {
     return <TimerHooksComponent />

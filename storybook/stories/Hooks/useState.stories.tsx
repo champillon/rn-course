@@ -29,7 +29,7 @@ storiesOf('Hooks/useState', module)
       return (
         <View>
           <Text>Count: {count}</Text>
-          <Button title="Increase" onPress={() => setCount(count + 1)} />
+          <Button title="Increase" onPress={() => setCount(count + 4)} />
         </View>
       )
     }
@@ -47,7 +47,7 @@ storiesOf('Hooks/useState', module)
           <Section>
             <Header>First Count</Header>
             <Text>Count: {count1}</Text>
-            <Button title="Increase" onPress={() => setCount1(count1 + 1)} />
+            <Button title="Increase" onPress={() => setCount1((prevCount) => prevCount + 1)} />
           </Section>
           <Section>
             <Header>Second Count</Header>
