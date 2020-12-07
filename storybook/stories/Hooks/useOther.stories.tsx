@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/react-native'
-import React, { useRef, useReducer } from 'react'
+import React, { useRef, useReducer, useState } from 'react'
 import { Header, Section } from '../Helpers/Helpers'
-import { View, Text, Button } from 'react-native'
+import { View, Text, Button, TextInputChangeEventData } from 'react-native'
 import CenterView from '../CenterView'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
 
@@ -47,8 +47,35 @@ storiesOf('Other hooks', module)
     }
     return <Component />
   })
-  .add('useReducer use case', () => {
-    return <View />
+  .add('useReducer use case #1', () => {
+    const [past, setPast] = useState([])
+    const [current, setCurrent] = useState('')
+    const [future, setFuture] = useState([])
+    const undo = () => {}
+    const redo = () => {}
+    const onChangeText = (event: TextInputChangeEventData) => {
+      // event.eventCount
+    }
+    return (
+      <View>
+        <Section>
+          <TextInput placeholder="Enter text" onChangeText={onChangeText} />
+          <Button title="Undo" onPress={undo} />
+          <Button title="Redo" onPress={undo} />
+        </Section>
+      </View>
+    )
+  })
+  .add('useReducer use case #2', () => {
+    return (
+      <View>
+        <Section>
+          <Header>First Count</Header>
+          <Text>Count: {state.count1}</Text>
+          <Button title="Increase" onPress={() => dispatch({ type: 'INC_1' })} />
+        </Section>
+      </View>
+    )
   })
   .add('useRefs', () => {
     function TextInputWithFocusButton() {
