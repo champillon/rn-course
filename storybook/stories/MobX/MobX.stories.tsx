@@ -1,43 +1,21 @@
 import { storiesOf } from '@storybook/react-native'
-import React from 'react'
-import { ActivityIndicator, View, Text, Button } from 'react-native'
+import React, { useEffect } from 'react'
+import { View, Text, Button, ActivityIndicator } from 'react-native'
 import CenterView from '../CenterView'
-import { makeObservable, observable, makeAutoObservable } from 'mobx'
+import {
+  counterStore,
+  CounterStore,
+  combinedCounterStore,
+  CombinedCounterStore,
+  CounterStore2,
+  taskStore,
+  TaskStore,
+  UserStore,
+  userStore,
+  LoadState,
+} from './MobXStores'
 import { observer } from 'mobx-react'
 
-class CounterStore {
-  count = 0
-  constructor(initialCount: number) {
-    this.count = initialCount
-    makeAutoObservable(this)
-  }
-
-  increase() {
-    this.count += 1
-  }
-}
-
-class CombinedCounterStore {
-  counterStore1: CounterStore
-  counterStore2: CounterStore
-  combinedCount = 0
-
-  constructor(counterStore1: CounterStore, counterStore2: CounterStore) {
-    this.counterStore1 = counterStore1
-    this.counterStore2 = counterStore2
-    makeAutoObservable(this)
-  }
-
-  incrementBoth() {
-    this.counterStore1.increase()
-    this.counterStore2.increase()
-    this.combinedCount++
-  }
-}
-
-const combinedCounterStore = new CombinedCounterStore(new CounterStore(0), new CounterStore(0))
-
-const counterStore = new CounterStore(0)
 storiesOf('MobX', module)
   .addDecorator((getStory) => <CenterView>{getStory() as JSX.Element}</CenterView>)
   .add('Counter', () => {
@@ -68,13 +46,16 @@ storiesOf('MobX', module)
       )
     })
     const counterStore1 = new CounterStore(3)
-    const counterStore2 = new CounterStore(2)
+    const counterStore2 = new CounterStore2(2)
     return (
       <View>
         <Component counterStore={counterStore1} />
         <Component counterStore={counterStore2} />
       </View>
     )
+  })
+  .add('Computed', () => {
+    return <View />
   })
 
   .add('Combining stores', () => {
@@ -104,4 +85,27 @@ storiesOf('MobX', module)
     })
 
     return <CombinedComponent combinedCounterStore={combinedCounterStore} />
+  })
+  .add('Using list', () => {
+    const Component = observer(({ taskStore }: { taskStore: TaskStore }) => {
+      return (
+        <View>
+          {taskStore.tasks.map((task) => {
+            return (
+              <View key={task.id} style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Text>{task.title}</Text>
+                <Button onPress={() => taskStore.toggleDone(task.id)} title={task.done ? '✅' : '❌'} />
+              </View>
+            )
+          })}
+        </View>
+      )
+    })
+    return <Component taskStore={taskStore} />
+  })
+  .add('Computed props', () => {
+    return <View />
+  })
+  .add('Async', () => {
+    return <Text>Change the main app</Text>
   })
