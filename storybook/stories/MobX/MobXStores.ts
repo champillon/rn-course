@@ -1,26 +1,57 @@
-import { makeObservable, observable, makeAutoObservable, action } from 'mobx'
+import { makeObservable, observable, makeAutoObservable, action, computed, runInAction } from 'mobx'
 
-export class CounterStore {
+export interface ICounterStore {
+  count: number
+  increase: () => void
+}
+
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(), ms)
+  })
+}
+export class CounterStore implements ICounterStore {
   count = 0
+  nonObservableCount = 0
   constructor(initialCount: number) {
     this.count = initialCount
-    makeAutoObservable(this)
+    this.nonObservableCount = initialCount
+    makeObservable(this, {
+      increase: action,
+      count: observable,
+      increaseAfter1Sec: action,
+    })
   }
 
   increase(): void {
     this.count += 1
+    this.nonObservableCount += 1
+  }
+
+  increaseNonAction(): void {
+    this.nonObservableCount += 1
+  }
+
+  increaseAfter1Sec(): void {
+    setTimeout(() => {
+      runInAction(() => {
+        this.count++
+      })
+    }, 1000)
+  }
+
+  async increasePromise(): Promise<void> {
+    await delay(500)
+    this.count++
   }
 }
 
-export class CounterStore2 {
+export class CounterStore2 implements ICounterStore {
   count = 0
 
   constructor(initialCount: number) {
     this.count = initialCount
-    makeObservable(this, {
-      increase: action,
-      count: observable,
-    })
+    makeAutoObservable(this)
   }
 
   increase(): void {
@@ -36,7 +67,9 @@ export class CombinedCounterStore {
   constructor(counterStore1: CounterStore, counterStore2: CounterStore) {
     this.counterStore1 = counterStore1
     this.counterStore2 = counterStore2
-    makeAutoObservable(this)
+    makeObservable(this, {
+      incrementBoth: action,
+    })
   }
 
   incrementBoth(): void {
@@ -46,7 +79,30 @@ export class CombinedCounterStore {
   }
 }
 
-type Task = {
+export class ComputedCounterStore implements ICounterStore {
+  count = 0
+  constructor(initialCount: number) {
+    this.count = initialCount
+    makeObservable(this, {
+      increase: action,
+      count: observable,
+      twiceCount: computed,
+    })
+  }
+
+  increase(): void {
+    this.count += 1
+  }
+
+  get twiceCount(): number {
+    console.log('Start calculating.....')
+    return this.count * 2
+  }
+}
+
+export const computedCounterStore = new ComputedCounterStore(0)
+
+export type Task = {
   title: string
   done: boolean
   id: string
@@ -79,6 +135,23 @@ export class TaskStore {
   }
 }
 
+export class UserStore {
+  name = 'Chris'
+  constructor() {
+    makeAutoObservable(this)
+  }
+
+  toggleName(): void {
+    if (this.name === 'Chris') {
+      this.name = 'Awa'
+    } else {
+      this.name = 'Chris'
+    }
+  }
+}
+
+export const userStore = new UserStore()
+
 export const combinedCounterStore = new CombinedCounterStore(new CounterStore(0), new CounterStore(0))
 
 export const counterStore = new CounterStore(0)
@@ -96,27 +169,3 @@ export enum LoadState {
   Loaded = 'loaded',
   Error = 'error',
 }
-
-type User = {
-  name: string
-}
-
-export class UserStore {
-  public loadState: LoadState = LoadState.Loading
-  public users: User[] = []
-  constructor() {
-    makeAutoObservable(this)
-  }
-
-  async load(): Promise<void> {
-    // this.loadState = LoadState.Loading
-    const response = await fetch('https://randomuser.me/api?results=10')
-    const textResponse = await response.text()
-    this.users = JSON.parse(textResponse).results.map((result: any) => ({
-      name: `${result.name.first} ${result.name.last}`,
-    }))
-    this.loadState = LoadState.Loaded
-  }
-}
-
-export const userStore = new UserStore()
